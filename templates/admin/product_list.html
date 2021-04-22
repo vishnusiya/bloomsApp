@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href='{% static "css/querysearchnav.css" %}' rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- ################# -->
+    <header>
+    <section class="container mt-3 mb-3 " id="navbar-section">
+    <div class="navbar navbar-expand-lg  ">
+        <a class="navbar-brand font-weight-bold mr-3 text-white" >Products List</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-id" aria-controls="navbar-id" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbar-id">
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/home/">Home</a>
+              </li>          
+
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/customer/sales/list/"><b>Sales</b></a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/customer/list/"><b>Customers</b></a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/logout/">Logout</a>
+              </li>
+              
+          </ul>
+          <form class="form-inline my-2 my-lg-6">
+            <input class="form-control mr-sm-2 ml-5 mr-2" type="text" class="form-control" placeholder="Search" id="search-input" data-bind="event: { keyup: $root.searchKey }">
+          </form>
+        </div>
+      </div>
+      </section>
+   </header>
+    <!-- ######################## -->
+
+    <div class="loader-bg d-none text-center">
+      <img src='{% static "images/horse.gif" %}' alt="Loading..." >
+    </div>
+
+   <section id ="creae-btn">
+      <div class="row" align="right">
+        <div class="col-12 mr-auto">
+          <a class="btn btn-success px-5"  href="/product/create/">Create</a>
+        </div>
+      </div>
+   </section>     
+
+ <section id="tablesection1">
+    <div class="mr-3 ml-5" id="tablediv">
+      <table class="table ">
+        <div class="mt-2"></div>
+          <thead class="thead-dark ">
+           <tr>
+              <th>Sl No</th>
+              <th>Product Name</th>
+              <th>Selling Price</th>
+              <th>Stock Status</th>
+              <th>Stock Quantity</th>
+              <th></th>
+              <th></th>
+              <th></th>
+           <tr>
+             <tbody>
+              <!-- ko foreach : productList-->    
+              <tr>
+                <td data-bind="click: $root.productDetails"><!-- ko text: (($root.current_page() -1) * 10) + ($index() + 1) --><!-- /ko --></td>
+                <td data-bind="click: $root.productDetails"><!-- ko text: product_name --><!-- /ko --></td>
+                <td data-bind="click: $root.productDetails"><!-- ko text: s_price --><!-- /ko --></td>
+                <td data-bind="click: $root.productDetails"><!-- ko text: stock_status --><!-- /ko --></td>
+                <td data-bind="click: $root.productDetails"><!-- ko text: quantity --><!-- /ko --></td>
+                <td data-bind="click: $root.incrementQuantity"><a href="#">
+                  <span class="glyphicon glyphicon-plus"></span></a>
+                </td>
+                <td data-bind="click: $root.decrementQuantity"><a href="#">
+                  <span class="glyphicon glyphicon-minus"></span></a>
+                </td>
+                <td data-bind="click: $root.deleteProduct"><a href="#">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a></td>
+              </tr>
+              <!-- /ko -->
+
+
+         <!-- ko if: pages_list().length > 1 -->
+            <nav aria-label="Pagination">
+              <ul class="pagination mt-3 float-right">
+                <li class="page-item">
+                 <a class="page-link" aria-label="First" data-bind="click: getFirstPage">
+                   <span aria-hidden="true">&laquo;</span>
+                 </a>
+                </li>
+                <li class="page-item" data-bind="css: $root.current_page() == 1 ? 'disabled':''">
+                  <a class="page-link" data-bind="click: getPrevPage" aria-label="Previous">
+                    <span aria-hidden="true">&#8249;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <!-- ko foreach: pages_list -->
+                  <li class="page-item" data-bind="css: $data == $root.current_page() ? 'active':''">
+                    <a class="page-link" data-bind="text: $data, click: $root.onPageClick">1</a>
+                  </li>
+                <!-- /ko -->
+                <li class="page-item" data-bind="css: $root.current_page() == $root.page_count() ? 'disabled':''">
+                  <a class="page-link" aria-label="Next" data-bind="click: getNextPage">
+                    <span aria-hidden="true">&#8250;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+                <li class="page-item">
+                 <a class="page-link" aria-label="Last" data-bind="click: getLastPage">
+                   <span aria-hidden="true">&raquo;</span>
+                 </a>
+               </li>
+              </ul>
+            </nav>
+          <!-- /ko -->
+        </tbody>
+      </table>
+      <div class="card-data-empty text-center d-none no-data">
+        <h2 class="mb-5 mt-5 text-muted">No Data</h2>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="modal fade error-modal" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-body text-center">
+         <span id="errorMessage">Error</span>
+       </div>
+       <div class="modal-footer text-center">
+         <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+       </div>
+     </div>
+   </div>
+  </div>
+
+<script src='{% static "js/jquery.min.js" %}'></script>
+<script src='{% static "js/jQuery-3.4.1.js" %}'></script>
+<script src='{% static "js/knockout-3.4.2.js" %}'></script>
+<script src='{% static "js/custom/admin/product-list.js" %}'></script>
+</body>
+</html>

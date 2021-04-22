@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=2.0
+Type=Application
+Icon=/home/vishnupriya/Desktop/build.jpeg
+Exec=/home/vishnupriya/projects/shopApp/web.sh
+Terminal=false
+Comment=My app!
