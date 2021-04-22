@@ -63,8 +63,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.loaders.app_directories.Loader',
-                'django.template.loaders.filesystem.Loader',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -83,7 +81,7 @@ WSGI_APPLICATION = 'project_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        "NAME": "blooms_db",
+        "NAME": "shop_db",
         "USER": "postgres",
         "PASSWORD": "admin@123",
         "HOST": "localhost",
