@@ -17,12 +17,14 @@ from decimal import Decimal
 
 if __name__ == '__main__':
     print ('Starting database population...')
-    users = open('Blooms_Final_List.csv')
+    users = open('1.Blooms_Stock_28-Apr-2021.csv')
+    users = open('1.Blooms_Stock_28-Apr-2021.csv')
     count = 0
     admin = User.objects.get(is_active=True,username='admin')
     with transaction.atomic():
         for row in users:
             row = row.split(',')
+            print(11111111111,row)
             category_name = row[1]
             product_name = row[2]
             quantity = row[4]
